@@ -109,6 +109,7 @@ static const char *backend_names[] =
 	"2.cs2",
 	"2.deadlock",
 	"2.outbreak",
+	"2.csso",
 };
 
 #if defined _WIN32
@@ -195,6 +196,11 @@ CreateInterface(const char *name, int *ret)
 		/* Either load as VSP or start VSP listener */
 		ptr = mm_GetVspCallbacks(atoi(&name[22]));
 	}
+	else if (strncmp(name, "ServerPluginCallbacks", 21) == 0)
+	{
+		/* Either load as VSP or start VSP listener */
+		ptr = mm_GetVspCallbacks(atoi(&name[21]));
+	}
 	else if (gamedll_bridge == NULL)
 	{
 		/* Load as gamedll */
@@ -260,7 +266,11 @@ mm_GetGameName(char *buffer, size_t size)
 MetamodBackend
 mm_DetermineBackendS1(QueryValveInterface engineFactory, QueryValveInterface serverFactory, const char *game_name)
 {
-	if (engineFactory("VEngineServer023", NULL) != NULL)
+	if (engineFactory("VEngineServer024", NULL) != NULL)
+	{
+		return MMBackend_CSSO;
+	}
+	else if (engineFactory("VEngineServer023", NULL) != NULL)
 	{
 		if (engineFactory("EngineTraceServer004", NULL) == NULL)
 		{

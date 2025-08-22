@@ -109,6 +109,7 @@ enum MetamodBackend
 	MMBackend_CS2 = 26,
 	MMBackend_Deadlock = 27,
 	MMBackend_Outbreak = 28,
+	MMBackend_CSSO = 29,
 	MMBackend_UNKNOWN
 };
 

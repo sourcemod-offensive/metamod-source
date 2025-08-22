@@ -95,7 +95,11 @@ void SourceProvider::Notify_DLLInit_Pre(CreateInterfaceFn engineFactory,
 	if ((gameclients = (IServerGameClients*)(serverFactory("ServerGameClients003", NULL)))
 		== NULL)
 	{
-		gameclients = (IServerGameClients*)(serverFactory("ServerGameClients004", NULL));
+		if ((gameclients = (IServerGameClients*)(serverFactory("ServerGameClients004", NULL)))
+		== NULL)
+		{
+			gameclients = (IServerGameClients*)(serverFactory("ServerGameClients005", NULL));
+		}
 	}
 
 	baseFs = (IFileSystem*)((engineFactory)(FILESYSTEM_INTERFACE_VERSION, NULL));
@@ -234,6 +238,8 @@ int SourceProvider::DetermineSourceEngine()
 	return SOURCE_ENGINE_SDK2013;
 #elif SOURCE_ENGINE == SE_TF2
 	return SOURCE_ENGINE_TF2;
+#elif SOURCE_ENGINE == SE_CSSO
+	return SOURCE_ENGINE_CSSO;
 #elif SOURCE_ENGINE == SE_DARKMESSIAH
 	return SOURCE_ENGINE_DARKMESSIAH;
 #elif SOURCE_ENGINE == SE_EYE
@@ -293,6 +299,8 @@ const char* SourceProvider::GetEngineDescription() const
 	return "Black Mesa (2015)";
 #elif SOURCE_ENGINE == SE_TF2
 	return "Team Fortress 2 (Valve Orange Box)";
+#elif SOURCE_ENGINE == SE_CSSO
+	return "Source Offensive";
 #elif SOURCE_ENGINE == SE_DARKMESSIAH
 	return "Dark Messiah (2006)";
 #elif SOURCE_ENGINE == SE_EYE

@@ -76,7 +76,7 @@ public:
 			CGlobalVars *pGlobals;
 			IPlayerInfoManager *playerInfoManager;
 
-			playerInfoManager = (IPlayerInfoManager *)info->gsFactory("PlayerInfoManager002", NULL);
+			playerInfoManager = (IPlayerInfoManager *)info->gsFactory(INTERFACEVERSION_PLAYERINFOMANAGER, NULL);
 			if (playerInfoManager == NULL)
 			{
 				UTIL_Format(error, maxlength, "Metamod:Source requires gameinfo.txt modification to load on this game");
@@ -102,7 +102,7 @@ public:
 			}
 
 			char gameclients_iface[] = "ServerGameClients000";
-			for (unsigned int i = 3; i <= 4; i++)
+			for (unsigned int i = 3; i <= 5; i++)
 			{
 				gameclients_iface[19] = '0' + i;
 				if ((gameclients = (IServerGameClients *)info->gsFactory(gameclients_iface, NULL)) == NULL)
