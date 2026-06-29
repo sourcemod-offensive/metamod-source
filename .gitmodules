@@ -3,4 +3,5 @@
 	url = https://github.com/alliedmodders/amtl
 [submodule "hl2sdk-manifests"]
 	path = hl2sdk-manifests
-	url = https://github.com/alliedmodders/hl2sdk-manifests
+	url = https://github.com/cafeed28/hl2sdk-manifests
+	branch = csso

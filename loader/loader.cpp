@@ -93,7 +93,8 @@ static const char *backend_names[] =
 	"2.doi",
 	"2.mock",
 	"2.pvkii",
-	"2.mcv"
+	"2.mcv",
+	"2.csso",
 };
 
 #if defined _WIN32
@@ -174,6 +175,11 @@ CreateInterface(const char *name, int *ret)
 	{
 		/* Either load as VSP or start VSP listener */
 		ptr = mm_GetVspCallbacks(atoi(&name[22]));
+	}
+	else if (strncmp(name, "ServerPluginCallbacks", 21) == 0)
+	{
+		/* Either load as VSP or start VSP listener */
+		ptr = mm_GetVspCallbacks(atoi(&name[21]));
 	}
 	else if (gamedll_bridge == NULL)
 	{
@@ -302,7 +308,11 @@ mm_GetGameName(char *buffer, size_t size)
 MetamodBackend
 mm_DetermineBackend(QueryValveInterface engineFactory, QueryValveInterface serverFactory, const char *game_name)
 {
-	if (engineFactory("VEngineServer023", NULL) != NULL)
+	if (engineFactory("VEngineServer025", NULL) != NULL)
+	{
+		return MMBackend_CSSO;
+	}
+	else if (engineFactory("VEngineServer023", NULL) != NULL)
 	{
 		if (engineFactory("EngineTraceServer004", NULL) == NULL)
 		{
