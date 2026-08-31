@@ -151,15 +151,15 @@ public:
 			assert(mfp_fconnect.thisptroffs == 0);
 			assert(mfp_fconnect.vtbloffs == 0);
 
-			/* Shifting ClientDisconnect through OnQueryCvarValueFinished up into slot for
-			 * ClientFullyConnect (8 entries)
+			/* Shifting ClientDisconnect through BNetworkCryptKeyValidate up into slot for
+			 * ClientFullyConnect (12 entries)
 			 */
 			SourceHook::SetMemAccess(&this_vtable[mfp_fconnect.vtblindex],
-									 sizeof(void *) * 8,
+									 sizeof(void *) * 12,
 									 SH_MEM_READ|SH_MEM_WRITE|SH_MEM_EXEC);
 			memmove(&this_vtable[mfp_fconnect.vtblindex],
 					&this_vtable[mfp_fconnect.vtblindex + 1],
-					sizeof(void *) * 8);
+					sizeof(void *) * 12);
 		}
 
 		char error[255];
